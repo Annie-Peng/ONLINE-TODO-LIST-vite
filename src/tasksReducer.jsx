@@ -30,5 +30,18 @@ export default function tasksReducer(tasks, action) {
       const result = tasks.filter((task) => task.id !== action.id);
       return result
     }
+    case 'toggleCompleteItem': {
+      const result = tasks.map((task) => {
+        if (task.id === action.id) {
+          return {
+            ...task,
+            completed: !task.completed
+          }
+        } else {
+          return task
+        }
+      })
+      return result;
+    }
   }
 }
