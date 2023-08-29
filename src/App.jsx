@@ -17,8 +17,10 @@ function App() {
     const fetchData = async () => {
       try {
         const res = await axios('https://fathomless-brushlands-42339.herokuapp.com/todo2');
-        console.log(res)
-        initialTasks = res.data;
+        dispatch({
+          type: 'getItem',
+          data: res.data
+        });
       }
       catch (err) {
         console.log(err)
