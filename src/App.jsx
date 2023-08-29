@@ -60,8 +60,7 @@ function App() {
         " placeholder="新增待辦事項" ref={inputRef} />
         <button className="ms-[-44px] w-10 h-10 bg-addBtn bg-no-repeat" type='button' onClick={addItemDispatch} />
       </label>
-      <ToDoList tasks={tasks} dispatch={dispatch} />
-      <EmptyCover />
+      {tasks.length > 0 ? <ToDoList tasks={tasks} dispatch={dispatch} /> : <EmptyCover />}
     </div>
   )
 }
