@@ -58,7 +58,7 @@ function App() {
       <label className="flex justify-center items-center mt-12">
         <input className="w-[500px] h-[47px] rounded-[10px] p-1 shadow-[0_0_15px_0_rgba(0,0,0,0.15)] indent-4 placeholder:text-tertiary
         " placeholder="新增待辦事項" ref={inputRef} />
-        <button className="ms-[-44px] w-10 h-10 bg-addBtn bg-no-repeat" type='button' onClick={addItemDispatch} />
+        <button className="ms-[-44px] w-[40px] h-[39px] bg-addBtn bg-no-repeat" type='button' onClick={addItemDispatch} />
       </label>
       {tasks.length > 0 ? <ToDoList tasks={tasks} dispatch={dispatch} /> : <EmptyCover />}
     </div>

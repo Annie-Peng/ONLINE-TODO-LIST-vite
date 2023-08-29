@@ -56,12 +56,12 @@ export default function toDoList({ tasks, dispatch }) {
           </div>
         ))}
       </div>
-      <ul className="content p-6 flex flex-col g-4">
+      <ul className="content p-6">
         {tasks.map((task, index) => (
-          <li className="border-b mb-4 pb-4 w-full" key={index}>
+          <li className="border-b mb-4 pb-4 w-full flex relative" key={index}>
             <button type='button' className={task.completed ? "completeBtn" : "unCompleteBtn"} onClick={() => toggleCompleteItemDispatch(task.id)} />
-            <input className="ms-4 w-[85%] outline-none" value={task.item} onChange={(e) => updateItemDispatch(e, task.id)} />
-            <button type='button' className="bg-deleteBtn w-[16px] h-[16px] bg-no-repeat" onClick={() => deleteItemDispatch(task.id)} />
+            <input className="ms-4 w-full outline-0 leading-5" value={task.item} onChange={(e) => updateItemDispatch(e, task.id)} />
+            <button type='button' className="bg-deleteBtn w-[16px] h-[16px] bg-no-repeat absolute right-0 top-[2px]" onClick={() => deleteItemDispatch(task.id)} />
           </li>
         ))}
       </ul >
