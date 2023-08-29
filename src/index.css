@@ -13,11 +13,22 @@
   }
 }
 
-/* .rectangleBtn::before {
+.unCompleteBtn::before {
   content: "";
   display: block;
   position: relative;
   width: 20px;
   height: 20px;
   background-image: url(images/btn/rectangleBox.png);
-} */
+  background-repeat: no-repeat;
+}
+
+.completeBtn::before {
+  content: "";
+  display: block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background-image: url(images/btn/vectorChecked.png);
+  background-repeat: no-repeat;
+}
