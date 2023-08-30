@@ -51,6 +51,12 @@ function App() {
       console.log(err)
       alert(err.message)
     }
+
+    const data = await fetchData();
+    dispatch({
+      type: 'getItem',
+      data: data
+    })
   }
 
   return (
@@ -68,3 +74,12 @@ function App() {
 
 export default App
 
+async function fetchData() {
+  try {
+    const res = await axios('https://fathomless-brushlands-42339.herokuapp.com/todo2');
+    return res.data
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
