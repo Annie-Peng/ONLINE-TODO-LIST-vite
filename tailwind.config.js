@@ -18,7 +18,6 @@ export default {
         colorBackground: "linear-gradient(177deg, #FFD370 54%,#fff 54%)",
         cover: "url(images/cover/coverPic2.png)",
         addBtn: "url(images/btn/plusBtn.png)",
-        completeBtn: "url(images/btn/rectangleBox.png)",
         deleteBtn: "url(images/btn/vectorCross.png)",
       },
     },
