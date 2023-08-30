@@ -39,12 +39,13 @@ function App() {
         item: obj.item,
         completed: obj.completed
       });
-      return dispatch({
+      dispatch({
         type: 'addItem',
         item: obj.item,
         completed: obj.completed
       }
-      )
+      );
+      inputRef.current.value = '';
     }
     catch (err) {
       console.log(err)
