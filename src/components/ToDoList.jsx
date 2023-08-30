@@ -69,7 +69,7 @@ export default function toDoList({ tasks, dispatch }) {
     <div className="container w-[500px] bg-white mx-auto mt-4 rounded-[10px] shadow-[0_0_15px_0_rgba(0,0,0,0.15)]">
       <div className="flex title">
         {toDoListTitle.map((title, index) => (
-          <button className={titleClass === index ? 'h-[51px] w-full text-center leading-[51px] font-bold border-b-2 border-secondary' : 'h-[51px] w-full text-center leading-[51px] font-bold text-tertiary border-b-2 border-[#EFEFEF]'} key={index} type='button' onClick={() => showFilterTitleDispatch(index)}>
+          <button className={`h-[51px] w-full text-center leading-[51px] font-bold border-b-2 ${titleClass === index ? 'border-secondary text-secondary' : 'border-[#EFEFEF] text-tertiary'}`} key={index} type='button' onClick={() => showFilterTitleDispatch(index)}>
             {title}
           </button>
         ))}
