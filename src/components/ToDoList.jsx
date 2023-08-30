@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import axios from 'axios';
 const toDoListTitle = ['全部', '待完成', '已完成']
 
 export default function toDoList({ tasks, dispatch }) {
+
+  const [titleClass, setTitleClass] = useState(0);
 
   async function updateItemDispatch(e, id) {
     const obj = {
@@ -47,13 +50,28 @@ export default function toDoList({ tasks, dispatch }) {
     }
   }
 
+  async function showFilterTitleDispatch(index) {
+    try {
+      const res = await axios('https://fathomless-brushlands-42339.herokuapp.com/todo2');
+      setTitleClass(index);
+      return dispatch({
+        type: 'showFilterTitle',
+        index: index,
+        initial: res.data,
+      })
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className="container w-[500px] bg-white mx-auto mt-4 rounded-[10px] shadow-[0_0_15px_0_rgba(0,0,0,0.15)]">
-      <div className="flex title border-b-2">
+      <div className="flex title">
         {toDoListTitle.map((title, index) => (
-          <div className="h-[51px] w-full text-center leading-[51px] font-bold text-tertiary" key={index}>
+          <button className={titleClass === index ? 'h-[51px] w-full text-center leading-[51px] font-bold border-b-2 border-secondary' : 'h-[51px] w-full text-center leading-[51px] font-bold text-tertiary border-b-2 border-[#EFEFEF]'} key={index} type='button' onClick={() => showFilterTitleDispatch(index)}>
             {title}
-          </div>
+          </button>
         ))}
       </div>
       <ul className="content p-6">
