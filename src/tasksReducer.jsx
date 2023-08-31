@@ -66,5 +66,13 @@ export default function tasksReducer(tasks, action) {
         uncompleted: uncompletedData.length
       }
     }
+    case 'clearAllCompleteItem': {
+      const result = tasks.todos.filter((task) => !task.completed);
+      return {
+        ...tasks,
+        todos: result,
+        uncompleted: result.length
+      }
+    }
   }
 }

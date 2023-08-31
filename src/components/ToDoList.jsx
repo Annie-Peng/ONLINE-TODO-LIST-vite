@@ -49,6 +49,22 @@ export default function ToDoList({ tasks, dispatch }) {
     }
   }
 
+  async function clearAllCompleteItemDispatch(tasks) {
+    try {
+      await tasks.todos.filter(task => {
+        task.completed &&
+          axios.delete(`https://fathomless-brushlands-42339.herokuapp.com/todo2/${task.id}`)
+        return
+      })
+      return dispatch({
+        type: 'clearAllCompleteItem'
+      })
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+
   const visibleTodos = useMemo(() => filterTodos(tasks.todos, titleClass), [tasks.todos, titleClass]);
 
   return (
@@ -73,7 +89,7 @@ export default function ToDoList({ tasks, dispatch }) {
       </ul >
       <div className="list flex justify-between px-6 pb-6">
         <span>{tasks.uncompleted} 個待完成項目</span>
-        <span className='ms-auto'>清除已完成項目</span>
+        <button className='ms-auto' onClick={() => clearAllCompleteItemDispatch(tasks)}>清除已完成項目</button>
       </div>
     </div>
 
