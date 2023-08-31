@@ -43,16 +43,5 @@ export default function tasksReducer(tasks, action) {
       })
       return result;
     }
-    case 'showFilterTitle': {
-      let result;
-      if (action.index === 0) {
-        result = action.initial
-      } else if (action.index === 1) {
-        result = action.initial.filter(task => !task.completed)
-      } else if (action.index === 2) {
-        result = action.initial.filter(task => task.completed)
-      }
-      return result
-    }
   }
 }

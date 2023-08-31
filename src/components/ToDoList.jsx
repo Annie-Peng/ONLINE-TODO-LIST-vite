@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import axios from 'axios';
 const toDoListTitle = ['全部', '待完成', '已完成']
 
-export default function toDoList({ tasks, dispatch }) {
-
+export default function ToDoList({ tasks, dispatch }) {
   const [titleClass, setTitleClass] = useState(0);
 
   async function updateItemDispatch(e, id) {
@@ -50,35 +49,24 @@ export default function toDoList({ tasks, dispatch }) {
     }
   }
 
-  async function showFilterTitleDispatch(index) {
-    try {
-      const res = await axios('https://fathomless-brushlands-42339.herokuapp.com/todo2');
-      setTitleClass(index);
-      return dispatch({
-        type: 'showFilterTitle',
-        index: index,
-        initial: res.data,
-      })
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
+  const visibleTodos = useMemo(() => filterTodos(tasks, titleClass), [tasks, titleClass]);
 
   return (
     <div className="container w-[500px] bg-white mx-auto mt-4 rounded-[10px] shadow-[0_0_15px_0_rgba(0,0,0,0.15)]">
       <div className="flex title">
         {toDoListTitle.map((title, index) => (
-          <button className={`h-[51px] w-full text-center leading-[51px] font-bold border-b-2 ${titleClass === index ? 'border-secondary text-secondary' : 'border-[#EFEFEF] text-tertiary'}`} key={index} type='button' onClick={() => showFilterTitleDispatch(index)}>
+          <button className={`h-[51px] w-full text-center leading-[51px] font-bold border-b-2 ${titleClass === index ? 'border-secondary text-secondary' : 'border-[#EFEFEF] text-tertiary'}`} key={index} type='button'
+            onClick={() => setTitleClass(index)}
+          >
             {title}
           </button>
         ))}
       </div>
       <ul className="content p-6">
-        {tasks.map((task, index) => (
+        {visibleTodos.map((task, index) => (
           <li className="border-b mb-4 pb-4 w-full flex relative" key={index}>
             <button type='button' className={task.completed ? "completeBtn" : "unCompleteBtn"} onClick={() => toggleCompleteItemDispatch(task.id)} />
-            <input className="ms-4 w-full outline-0 leading-5" value={task.item} onChange={(e) => updateItemDispatch(e, task.id)} />
+            <input className="ms-4 w-full outline-none leading-5" value={task.item} onChange={(e) => updateItemDispatch(e, task.id)} />
             <button type='button' className="bg-deleteBtn w-[16px] h-[16px] bg-no-repeat absolute right-0 top-[2px]" onClick={() => deleteItemDispatch(task.id)} />
           </li>
         ))}
@@ -90,4 +78,16 @@ export default function toDoList({ tasks, dispatch }) {
     </div>
 
   )
+}
+
+function filterTodos(tasks, tab) {
+  return tasks.filter(todo => {
+    if (tab === 0) {
+      return true;
+    } else if (tab === 1) {
+      return !todo.completed;
+    } else if (tab === 2) {
+      return todo.completed;
+    }
+  });
 }
