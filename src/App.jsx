@@ -51,6 +51,12 @@ function App() {
       console.log(err)
       alert(err.message)
     }
+
+    const data = await fetchData();
+    dispatch({
+      type: 'getItem',
+      data: data
+    })
   }
 
   return (
@@ -61,10 +67,19 @@ function App() {
         " placeholder="新增待辦事項" ref={inputRef} />
         <button className="ms-[-44px] w-[40px] h-[39px] bg-addBtn bg-no-repeat" type='button' onClick={addItemDispatch} />
       </label>
-      {tasks.length > 0 ? <ToDoList tasks={tasks} dispatch={dispatch} /> : <EmptyCover />}
+      {tasks.todos && tasks.todos.length !== 0 ? <ToDoList tasks={tasks} dispatch={dispatch} /> : <EmptyCover />}
     </div>
   )
 }
 
 export default App
 
+async function fetchData() {
+  try {
+    const res = await axios('https://fathomless-brushlands-42339.herokuapp.com/todo2');
+    return res.data
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
