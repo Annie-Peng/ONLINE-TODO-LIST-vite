@@ -49,7 +49,7 @@ export default function ToDoList({ tasks, dispatch }) {
     }
   }
 
-  const visibleTodos = useMemo(() => filterTodos(tasks, titleClass), [tasks, titleClass]);
+  const visibleTodos = useMemo(() => filterTodos(tasks.todos, titleClass), [tasks.todos, titleClass]);
 
   return (
     <div className="container w-[500px] bg-white mx-auto mt-4 rounded-[10px] shadow-[0_0_15px_0_rgba(0,0,0,0.15)]">
@@ -72,7 +72,7 @@ export default function ToDoList({ tasks, dispatch }) {
         ))}
       </ul >
       <div className="list flex justify-between px-6 pb-6">
-        <span>5 個待完成項目</span>
+        <span>{tasks.uncompleted} 個待完成項目</span>
         <span className='ms-auto'>清除已完成項目</span>
       </div>
     </div>
